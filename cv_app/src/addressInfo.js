@@ -1,8 +1,8 @@
 import React from 'react';
-
 export default function Address({ 
   setAreaCode,address,setAdress,  setProvince, setCity, setStreetAddress,
   areaCode, province, city, streetAddress 
+  
 }) {
 
   // Event handlers (no changes needed here)
@@ -12,8 +12,9 @@ export default function Address({
   const handleStreetAddressChange = (event) => setStreetAddress(event.target.value);
 
   return (
+    <div>
+    <h1>Address Info</h1>
     <form>
-      <div>
         {/* Input fields with corrected props */}
         <label htmlFor="areaCode">Area Code:</label>
         <input id="areaCode" type="number" value={areaCode} onChange={handleAreaCodeChange} />
@@ -26,7 +27,9 @@ export default function Address({
 
         <label htmlFor="streetAddress">Street Address:</label>
         <input id="streetAddress" type="text" value={streetAddress} onChange={handleStreetAddressChange} />
-      </div>
+     
     </form>
+    </div>
+   
   );
 }

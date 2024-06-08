@@ -12,6 +12,8 @@ export default function PersonalInfo({
   const handlePhoneChange = (event) => setPhone(event.target.value);
 
   return (
+    <div>
+    <h1>Personal Information</h1>
     <form id='PersonaInfoForm'>
       <div>
         <label htmlFor="name">Name:</label>
@@ -27,6 +29,10 @@ export default function PersonalInfo({
         <input id="phone" type="tel" value={phone} onChange={handlePhoneChange} />
       </div>
     </form>
+    </div>
+    
   );
 }
+
+
 
