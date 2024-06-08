@@ -1,9 +1,9 @@
-
+//app.js
 import React, { useState } from 'react';
 import PersonalInfo from './personalnfo';
 import Address from './addressInfo';
 import { useEffect } from 'react';
-
+import ExperienceInfo from'./experience';
 
 
 function App() {
@@ -19,6 +19,10 @@ function App() {
   const [city, setCity] = useState('');
   const [areaCode, setAreaCode] = useState('');
   const [province, setProvince] = useState('');
+
+  // Experience State
+  const [jobExperiences, setJobExperiences] = useState([]); 
+
 
   // OBJECTS TO STORE USER DATA IN JSON
   const [address, setAddress] = useState({
@@ -52,7 +56,11 @@ useEffect(() => {
   return (
     <div>
       <h1>Personal Information</h1>
-      
+      <ExperienceInfo 
+
+        jobExperiences = {jobExperiences}
+        setJobExperiences={setJobExperiences}
+      />
       <PersonalInfo 
         name={name}
         setName={setName}
