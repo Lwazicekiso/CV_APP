@@ -108,8 +108,8 @@ export default function ExperienceInfo({ jobExperiences, setJobExperiences }) {
           <div key={index}> 
             <input value={editingPosition} onChange={(e) => setEditingPosition(e.target.value)} />
             <input value={editingCompany} onChange={(e) => setEditingCompany(e.target.value)} />
-            <input value={editingStartDate} onChange={(e) => setEditingStartDate(e.target.value)} />
-            <input value={editingEndDate} onChange={(e) => setEditingEndDate(e.target.value)} />
+            <input type="date"  alue={editingStartDate} onChange={(e) => setEditingStartDate(e.target.value)} />
+            <input type="date"  value={editingEndDate} onChange={(e) => setEditingEndDate(e.target.value)} />
             <button type="button" onClick={handleCancelEdit}>Cancel</button>
             <button type="button" onClick={() => handleSaveExperience(index)}>Save</button> 
           </div>
