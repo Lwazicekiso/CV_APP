@@ -6,6 +6,8 @@ export default function ExperienceInfo({ jobExperiences, setJobExperiences }) {
   const [company, setCompany] = useState('');
   const [startDate, setStartDate] = useState('');
   const [endDate, setEndDate] = useState('');
+
+  const [editingIndex,setEditingIndex] = useState('');
   const handleAddExperience = () => {
     const newExperience = { position, company, startDate, endDate };
     setJobExperiences(prevExperiences => [...prevExperiences, newExperience]);
@@ -15,6 +17,42 @@ export default function ExperienceInfo({ jobExperiences, setJobExperiences }) {
     setStartDate('');
     setEndDate('');
   };
+
+  //STATES FOR WHEN EDITING POSITION
+  const [editingPosition, setEditingPosition] = useState('');
+  const [editingCompany, setEditingCompany] = useState('');
+  const [editingStartDate, setEditingStartDate] = useState('');
+  const [editingEndDate, setEditingEndDate] = useState('');
+
+  const handleEditExperience = (indexToEdit) => {
+    const experienceToEdit = jobExperiences[indexToEdit];//returns the expereicnce at the index
+    setEditingPosition(experienceToEdit.position);
+    setEditingCompany(experienceToEdit.company);
+    setEditingStartDate(experienceToEdit.startDate);
+    setEditingEndDate(experienceToEdit.endDate);
+    setEditingIndex(indexToEdit);
+  };
+
+  const handleCancelEdit = () => {
+    setEditingPosition('');
+    setEditingCompany('');
+    setEditingStartDate('');
+    setEditingEndDate('');
+    setEditingIndex('');
+  };
+
+
+
+ const handleSaveExperience = (indexToEdit) => {
+    setJobExperiences(prevExperiences => prevExperiences.map((exp, index) =>
+      index === indexToEdit 
+        ? { position: editingPosition, company: editingCompany, startDate: editingStartDate, endDate: editingEndDate }
+        : exp
+    ));
+    setEditingIndex(null);
+    handleCancelEdit(); // Clear editing state after saving
+  };
+
 
   const handleRemoveExperience = (indexToRemove) => {
     setJobExperiences(prevExperiences => 
@@ -65,15 +103,31 @@ export default function ExperienceInfo({ jobExperiences, setJobExperiences }) {
       </form>
 
       <ul>
-        {jobExperiences.map((exp, index) => (
+      {jobExperiences.map((exp, index) => (
+        index === editingIndex ? ( 
+          <div key={index}> 
+            <input value={editingPosition} onChange={(e) => setEditingPosition(e.target.value)} />
+            <input value={editingCompany} onChange={(e) => setEditingCompany(e.target.value)} />
+            <input value={editingStartDate} onChange={(e) => setEditingStartDate(e.target.value)} />
+            <input value={editingEndDate} onChange={(e) => setEditingEndDate(e.target.value)} />
+            <button type="button" onClick={handleCancelEdit}>Cancel</button>
+            <button type="button" onClick={() => handleSaveExperience(index)}>Save</button> 
+          </div>
+        ) : (
           <li key={index}>
             {exp.position} at {exp.company} ({exp.startDate} - {exp.endDate})
             <button type="button" onClick={() => handleRemoveExperience(index)}>
               Remove
             </button>
+            <button type="button" onClick={() => handleEditExperience(index)}>
+              Edit
+            </button>
           </li>
-        ))}
-      </ul>
+        )
+      ))}
+    </ul>
+  );
+
     </div>
   );
 }
